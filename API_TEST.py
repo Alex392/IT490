@@ -15,17 +15,20 @@ count = 0
 seachquest = raw_input("what are you looking for?")#askes the user for a topic
 
 #[limit] is the amount of reasults it will return
-for submission in reddit.subreddit('all').search(seachquest,limit=2):
+for submission in reddit.subreddit('all').search(seachquest,limit=6):
 	count+= 1
-	print(str(count)+') Title: {},user: {}'.format(submission.title.encode('utf-8').strip(),submission.author))
+	print(str(count)+') Title: {} User: {}'.format(submission.title.encode('utf-8').strip(),submission.author))
+	print(20*'=')
+	submission.comment_limit = 10
 	submission.comments.replace_more(limit=0)
 
 	for comment in submission.comments.list():
 		print(20*'-')
-		print('User: ' , comment.author)#{comment.author} gives the user name
-		print('Parent ID:', comment.parent())
-		print('Comment ID:', comment.id)
+		print('User: {} Parent ID: {} Comment ID: {}'.format(comment.author,comment.parent(),comment.id))#{comment.author} gives the user name
+#		print('Parent ID: ', comment.parent())
+#		print('Comment ID:', comment.id)
 		print(comment.body)
+		print(20*'-')
 
 print('-------------------')
 
