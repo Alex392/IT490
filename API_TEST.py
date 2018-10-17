@@ -15,21 +15,17 @@ count = 0
 seachquest = raw_input("what are you looking for?")#askes the user for a topic
 
 #[limit] is the amount of reasults it will return
-for submission in reddit.subreddit('all').search(seachquest,limit=3):
+for submission in reddit.subreddit('all').search(seachquest,limit=2):
 	count+= 1
-	print(str(count)+')Title: {},user: {}'.format(submission.title.encode('utf-8').strip(),submission.author)
+	print(str(count)+') Title: {},user: {}'.format(submission.title.encode('utf-8').strip(),submission.author))
+	submission.comments.replace_more(limit=0)
 
-
-#prints out the comments
-	
-#	submission.comments.replace_more(limit=0)
-
-#	for comment in submission.comments.list():
-#		print(20*'-')
-#		print('User: ' , comment.author)#{comment.author} gives the user name
-#		print('Parent ID:', comment.parent())
-#		print('Comment ID:', comment.id)
-#		print(comment.body)
+	for comment in submission.comments.list():
+		print(20*'-')
+		print('User: ' , comment.author)#{comment.author} gives the user name
+		print('Parent ID:', comment.parent())
+		print('Comment ID:', comment.id)
+		print(comment.body)
 
 print('-------------------')
 
@@ -52,5 +48,3 @@ for submission in hot_python:
 #        print('Parent ID:', comment.parent())
 #	print('Comment ID:', comment.id)
 #	print(comment.body)
-
-
