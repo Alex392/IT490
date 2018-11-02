@@ -17,26 +17,17 @@ print(reddit.user.me())
 
 userSearch = raw_input("Who are you looking for?")#askes the user who they are looking for
 try:
-#	if reddit.redditor(name=userSearch).has_verified_email:
-#		print('the user exists')
+
 	USERNAME = reddit.redditor(name=userSearch).name
 	REDDIT_ID = reddit.redditor(name=userSearch).id
 	rB_DAY = time.strftime("%Y-%m-%d",time.localtime(reddit.redditor(name=userSearch).created_utc))
 	EMAIL = reddit.redditor(name=userSearch).has_verified_email
 		
-#	else: 
-#		print('You need varify your e-mail')
-#		USERNAME = reddit.redditor(name=userSearch).name
-#		REDDIT_ID = reddit.redditor(name=userSearch).id
-#		rB_DAY = time.strftime("%Y-%m-%d",time.localtime(reddit.redditor(name=userSearch).created_utc))
-#		EMAIL = reddit.redditor(name=userSearch).has_verified_email
+
 except :
 	print('the account is avable')
 	sys.exit()
-#	print(reddit.redditor(name=userSearch).name)
-#	print(reddit.redditor(name=userSearch).id)
-#	print(reddit.redditor(name=userSearch).created_utc)
-#	print(reddit.redditor(name=userSearch).has_verified_email)
+
 
 print('USERNAME: ' + USERNAME)
 print('REDDIT_ID: ' + REDDIT_ID)
