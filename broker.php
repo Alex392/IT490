@@ -6,16 +6,38 @@ require_once('rabbitMQLib.inc');
 require_once('login.php.inc');
 require_once('functions.inc');
 
-<<<<<<< HEAD
 function get_userinfo($username)
 {
-$name = $username;
-echo ('the is $name!!!!!' . $name);
-exec("python USER_INFO.py '".$name."'" ,$output,$result);
-return $output;
+    $name = $username;
+    echo ('the is $name!!!!!' . $name);
+    exec("python USER_INFO.py '".$name."'" ,$output,$result);
+    echo log_api_data($output);
+    return $output;
 }
 
-=======
+function log_api_data($userinfo) {
+    $db = mysqli_connect('localhost', 'emile', 'Password7!', 'authtest');
+
+    $s = "SELECT * FROM reddit_data WHERE redditorID ='". $userinfo[1] . "';";
+    echo $s;
+    ($t = mysqli_query($db, $s) or die(mysqli_errno($db))); 
+    $num = mysqli_num_rows($t);
+    $result = false;
+    echo $num;
+    if ($num == 1){
+	echo "already exists";
+        $result = true;
+    }
+    else {
+        $s = "INSERT INTO reddit_data VALUES('".$userinfo[1]."', '".$userinfo[0]."', CAST('". $userinfo[2] ."' AS DATE), '".$userinfo[3]."');";
+        $t = (mysqli_query($db, $s));
+    
+	    echo $result;
+    }
+    //echo $result;
+    return $result;
+}
+
 function start_campaign($username, $password, $subreddit, $topic)
 {
     $command = '/bin/usr/python2.7 START_CAMPAIGN.py ' . $username . " " . $password . " " . $subreddit . " " . $topic;
@@ -28,7 +50,6 @@ function doRegister($username, $password)
 
     return $result;
 }
->>>>>>> 28f02917946baf43f52e0960461074c312c5c700
 
 function requestProcessor($request)
 {
@@ -40,15 +61,11 @@ function requestProcessor($request)
         return "ERROR: unsupported message type";
     }
     switch ($request['type']) {
-<<<<<<< HEAD
         case "user_info":
             return get_userinfo($request['username']);
-        case "register":
-=======
         case "campaign":
             return start_campaign($request['username'], $request['password'], $request['subreddit'], $request['topic']);
         case "agg_thread":
->>>>>>> 28f02917946baf43f52e0960461074c312c5c700
             return doRegister($request['username'], $request['password']);
         case "agg_users":
             return doValidate($request['sessionId']);
