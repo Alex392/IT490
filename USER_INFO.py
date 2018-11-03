@@ -33,10 +33,10 @@ def USER_INFO():
 		rB_DAY = 'NULL'
 		EMAIL = 'NULL'
 
-	print('USERNAME: ' + USERNAME)
-	print('REDDIT_ID: ' + REDDIT_ID)
-	print('rB_DAY: ' + rB_DAY)
-	print('EMAIL: ' + str(EMAIL))
+	print(USERNAME)
+	print(REDDIT_ID)
+	print(rB_DAY)
+	print(str(EMAIL))
 
 	payload = [USERNAME, REDDIT_ID, rB_DAY, str(EMAIL)]
 	

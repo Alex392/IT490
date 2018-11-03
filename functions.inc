@@ -27,28 +27,31 @@ function log_message($request)
 }
 
 */ 
-function log_api_data($rid, $rUser, $accountCreationDate, $verified) {
-    $db = mysqli_connect('localhost', 'emile', 'Password7!', 'authtest');
-    
-    $rUser = mysqli_real_escape_string($db, $rUser);
-
-    $s = "SELECT * FROM reddit_data WHERE redditorID ='". $rid ."';";
-echo $s;
+function log_api_data($userinfo) {
+    $db = new mysqli('192.168.0.124', 'emile', 'Password7!', 'authtest');
+    $s = "SELECT * FROM reddit_data WHERE redditorID ='". $userinfo[3] . "';";
     ($t = mysqli_query($db, $s) or die(mysqli_errno($db))); 
     $num = mysqli_num_rows($t);
-    $result = false;
     echo $num;
     if ($num == 1){
 	echo "already exists";
         $result = true;
     }
     else {
-        $s = "INSERT INTO reddit_data VALUES('".$rid."', '".$rUser."', CAST('". $accountCreationDate ."' AS DATE), '".$verified."');";
-        $t = (mysqli_query($db, $s));
+	echo var_dump($userinfo);
+	$fuck = 0;
+	if ($userinfo[5] == 'True'){
+		$fuck = 1;	
+	}
+	echo ($fuck);
+        $s = "INSERT INTO reddit_data VALUES('".$userinfo[3]."', '".$userinfo[2]."', CAST('". $userinfo[4] ."' AS DATE), " . $fuck . ");";
+	echo $s;
+        $t = (mysqli_query($db, $s) or die(mysqli_errno($db)));
+	echo "recorded in database";
+	$result = true;
     
-	echo $result;
     }
-    //echo $result;
+    echo $result;
     return $result;
 }
 ?>

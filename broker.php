@@ -5,6 +5,8 @@ require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 require_once('login.php.inc');
 require_once('functions.inc');
+/*
+*/
 
 function get_userinfo($username)
 {
@@ -15,28 +17,7 @@ function get_userinfo($username)
     return $output;
 }
 
-function log_api_data($userinfo) {
-    $db = mysqli_connect('localhost', 'emile', 'Password7!', 'authtest');
 
-    $s = "SELECT * FROM reddit_data WHERE redditorID ='". $userinfo[1] . "';";
-    echo $s;
-    ($t = mysqli_query($db, $s) or die(mysqli_errno($db))); 
-    $num = mysqli_num_rows($t);
-    $result = false;
-    echo $num;
-    if ($num == 1){
-	echo "already exists";
-        $result = true;
-    }
-    else {
-        $s = "INSERT INTO reddit_data VALUES('".$userinfo[1]."', '".$userinfo[0]."', CAST('". $userinfo[2] ."' AS DATE), '".$userinfo[3]."');";
-        $t = (mysqli_query($db, $s));
-    
-	    echo $result;
-    }
-    //echo $result;
-    return $result;
-}
 
 function start_campaign($username, $password, $subreddit, $topic)
 {
