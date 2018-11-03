@@ -6,69 +6,14 @@ require_once('rabbitMQLib.inc');
 require_once('login.php.inc');
 require_once('functions.inc');
 
-function doLogin($username, $password)
+function get_userinfo($username)
 {
-    // lookup username in database
-    // check password
-    $result = false;
-    if (!isset($username) || !isset($password)) {
-        echo "invalid input";
-        return false;
-    }
-    $db        = mysqli_connect('localhost', 'emile', 'Password7!', 'authtest');
-    $pass_hash = hash('sha512', $password);
-    $s         = sprintf("SELECT * FROM users WHERE username='%s' AND passhash='%s'", mysqli_real_escape_string($db, $username), mysqli_real_escape_string($db, $pass_hash));
-    $t = mysqli_query($db, $s) or die(mysqli_error($db));
-    $num       = mysqli_num_rows($t);
-    $file      = __FILE__ . PHP_EOL;
-    $pathArray = explode("/", $file);
-    if ($num > 0) {
-        echo "success";
-        $result = true;
-    } else {
-        echo "FAILURE";
-        $result = false;
-    }
-    
-
-    echo log_api_data(1, 'test', '1990-10-10', true);
-    echo "checkpoint";
-    return $result;
-    
-    //$login = new loginDB();
-    //return $login->validateLogin($username,$password);
-    //return false if not valid
+$name = $username;
+echo ('the is $name!!!!!' . $name);
+exec("python USER_INFO.py '".$name."'" ,$output,$result);
+return $output;
 }
 
-function doRegister($username, $password)
-{
-    $result = false;
-
-    if (!isset($username) || !isset($password)) {
-        echo "invalid input";
-        return false;
-    }
-    
-    
-    $db        = mysqli_connect('localhost', 'emile', 'Password7!', 'authtest');
-    $pass_hash = hash('sha512', $password);
-    $s         = sprintf("SELECT * FROM users WHERE username='%s' AND passhash='%s'", mysqli_real_escape_string($db, $username), mysqli_real_escape_string($db, $pass_hash));
-    $t = mysqli_query($db, $s) or die(mysqli_error($db));
-    $num       = mysqli_num_rows($t);
-    $file      = __FILE_ . PHP_EOL;
-    $pathArray = explode("/", $file);
-    if ($num == 0) {
-        $s2 = sprintf("INSERT INTO users (username, passhash) VALUES ('%s', '%s')", mysqli_real_escape_string($db, $username), mysqli_real_escape_string($db, $pass_hash));
-        $t2 = mysqli_query($db, $s2) or die(mysqli_error($db));
-        echo "register";
-        $result = true;
-    } else {
-        echo "Already registered";
-        $result = false;
-    }
-
-    return $result;
-}
 
 function requestProcessor($request)
 {
@@ -80,8 +25,9 @@ function requestProcessor($request)
         return "ERROR: unsupported message type";
     }
     switch ($request['type']) {
-        case "login":
-            return doLogin($request['username'], $request['password']);
+        case "user_info":
+	    echo get_userinfo($request['username']);
+            return get_userinfo($request['username']);
         case "register":
             return doRegister($request['username'], $request['password']);
         case "validate_session":
