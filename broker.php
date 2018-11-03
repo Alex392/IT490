@@ -26,7 +26,6 @@ function requestProcessor($request)
     }
     switch ($request['type']) {
         case "user_info":
-	    echo get_userinfo($request['username']);
             return get_userinfo($request['username']);
         case "register":
             return doRegister($request['username'], $request['password']);
