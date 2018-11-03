@@ -6,6 +6,7 @@ require_once('rabbitMQLib.inc');
 require_once('login.php.inc');
 require_once('functions.inc');
 
+<<<<<<< HEAD
 function get_userinfo($username)
 {
 $name = $username;
@@ -14,6 +15,20 @@ exec("python USER_INFO.py '".$name."'" ,$output,$result);
 return $output;
 }
 
+=======
+function start_campaign($username, $password, $subreddit, $topic)
+{
+    $command = '/bin/usr/python2.7 START_CAMPAIGN.py ' . $username . " " . $password . " " . $subreddit . " " . $topic;
+    $output = shell_exec($command);
+}
+
+function doRegister($username, $password)
+{
+    $result = true;
+
+    return $result;
+}
+>>>>>>> 28f02917946baf43f52e0960461074c312c5c700
 
 function requestProcessor($request)
 {
@@ -25,12 +40,20 @@ function requestProcessor($request)
         return "ERROR: unsupported message type";
     }
     switch ($request['type']) {
+<<<<<<< HEAD
         case "user_info":
             return get_userinfo($request['username']);
         case "register":
+=======
+        case "campaign":
+            return start_campaign($request['username'], $request['password'], $request['subreddit'], $request['topic']);
+        case "agg_thread":
+>>>>>>> 28f02917946baf43f52e0960461074c312c5c700
             return doRegister($request['username'], $request['password']);
-        case "validate_session":
+        case "agg_users":
             return doValidate($request['sessionId']);
+        case "post":
+            return post($request['username'], $request['password'], $request['topic']);
     }
     //log_message($request);
     return array(
