@@ -10,26 +10,23 @@ require_once('functions.inc');
 
 function get_userinfo($username)
 {
-    $name = $username;
-    echo ('the is $name!!!!!' . $name);
+    echo ('Getting profile information for ' . $name . '...');
     exec("python USER_INFO.py '".$name."'" ,$output,$result);
     echo log_api_data($output);
     return $output;
 }
 
-
-
 function start_campaign($username, $password, $subreddit, $topic)
 {
-    $command = '/bin/usr/python2.7 START_CAMPAIGN.py ' . $username . " " . $password . " " . $subreddit . " " . $topic;
-    $output = shell_exec($command);
+    echo ('Starting campaign on user ' . $name . ' on ' . $topic . '...');
+    exec("python START_CAMPAGIN.py '".$name."' '".$topic."'" ,$output,$result);
+    return $output;
 }
 
-function doRegister($username, $password)
-{
-    $result = true;
-
-    return $result;
+function subreddit_post($username, $password, $subreddit, $subject, $message) {
+    echo ('Posting ' . $subject . ' by user ' . $username . ' on subreddit ' . $subreddit . '...');
+    exec("python SUBREDDIT_POST.py '".$name."' '".$topic."'" ,$output,$result);
+    return $output;
 }
 
 function requestProcessor($request)
