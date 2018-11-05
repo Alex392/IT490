@@ -2,6 +2,8 @@ import praw
 import sys
 import json
 
+#this code will count how many times everyone comments on a post and then list the top commentors 
+
 reddit = praw.Reddit(client_id = 'pPciqPn--wkB9Q' ,
                      client_secret = 'pX5mKEZUUP2QP7w4bux1haeBDuc' ,
                      username = 'nullbreakers-1',
