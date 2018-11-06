@@ -13,7 +13,7 @@ reddit = praw.Reddit(client_id = 'pPciqPn--wkB9Q' ,
 	             username = 'nullbreakers-1',
 	             password ='DJKehoe',
 	             user_agent ='testapp')
-print(reddit.user.me())
+#print(reddit.user.me())
 
 
 def USER_INFO():

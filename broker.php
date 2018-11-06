@@ -12,9 +12,13 @@ function get_userinfo($username)
 {
     echo ('Getting profile information for ' . $username . '...');
     exec("python USER_INFO.py '".$username."'" ,$output,$result);
+    $temp = $output;    
     $output = json_encode($output);
+    
     //echo gettype($output);
-    //echo log_api_data($output);
+    //echo ('  [after decode]=> ');
+    //echo gettype($temp);
+    //echo log_api_data($temp);
     return $output;
 }
 
