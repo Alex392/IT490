@@ -16,15 +16,21 @@ function get_userinfo($username)
     return $output;
 }
 
-function start_campaign($username, $password, $subreddit, $topic)
-{
-    echo ('Starting campaign on user ' . $name . ' on ' . $topic . '...');
-    exec("python START_CAMPAGIN.py '".$name."' '".$topic."'" ,$output,$result);
+// function start_campaign($username, $password, $subreddit, $topic)
+// {
+//     echo ('Starting campaign on user ' . $username . ' on ' . $topic . '...');
+//     exec("python START_CAMPAGIN.py '".$username."' '".$topic."'" ,$output,$result);
+//     return $output;
+// }
+
+function subreddit_post($subreddit, $subject, $content) {
+    echo ('Posting ' . $subject . ' on subreddit ' . $subreddit . '...');
+    exec("python SUBREDDIT_POST.py '".$subreddit."' '".$subject."' '".$content."'" ,$output,$result);
     return $output;
 }
 
-function subreddit_post($username, $password, $subreddit, $subject, $message) {
-    echo ('Posting ' . $subject . ' by user ' . $username . ' on subreddit ' . $subreddit . '...');
+function key_players($postID) {
+    echo ('');
     exec("python SUBREDDIT_POST.py '".$name."' '".$topic."'" ,$output,$result);
     return $output;
 }
