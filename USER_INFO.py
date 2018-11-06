@@ -18,8 +18,8 @@ print(reddit.user.me())
 
 def USER_INFO():
 #userSearch = raw_input("Who are you looking for?")#askes the user who they are looking for
-	print(sys.argv)
-	userSearch = sys.argv[1]
+	#print(sys.argv)
+	userSearch = str(sys.argv[1])
 	try:
 		USERNAME = reddit.redditor(name=userSearch).name
 		REDDIT_ID = reddit.redditor(name=userSearch).id
@@ -32,15 +32,16 @@ def USER_INFO():
 		REDDIT_ID = 'NULL'
 		rB_DAY = 'NULL'
 		EMAIL = 'NULL'
-
-	print(USERNAME)
-	print(REDDIT_ID)
-	print(rB_DAY)
-	print(str(EMAIL))
+	
+	#Commented out to make it easier for the front end
+	#print(USERNAME)
+	#print(REDDIT_ID)
+	#print(rB_DAY)
+	#print(str(EMAIL))
 
 	payload = [USERNAME, REDDIT_ID, rB_DAY, str(EMAIL)]
 	
-	print(payload)
+	#print(payload)
 	print(json.dumps(payload))
 	return json.dumps(payload)
 	#return USERNAME

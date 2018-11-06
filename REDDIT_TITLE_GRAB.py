@@ -12,11 +12,15 @@ print(reddit.user.me())
 
 def REDDIT_TITLE_GRAB():
 
+
+	COMMENT_TALLY = {}
+	payload = []
 	count = 0
+	mark = 0
 
 
 	#seachquest = raw_input("what are you looking for?")#askes the user for a topic
-	seachquest = sys.argv[2]
+	seachquest = str(sys.argv[2])
 
 	print(20*'=')
 	#[limit] is the amount of reasults it will return
@@ -36,6 +40,35 @@ def REDDIT_TITLE_GRAB():
 		USERNAME = submission.author
 		TITLE_ID = submission.id
 		TITLE = submission.title.encode('utf-8').strip()
-		if count == int(sys.argv[1]): quit()
+		
 
+		#starts to tally the comments that people make
+		POST = reddit.submission(id=TITLE_ID)
+
+		POST.comment_limit = 0
+		POST.comments.replace_more(limit=0)
+
+		#Goes though a title to see how many times someone posted
+		for comment in POST.comments.list():
+			if comment.author in COMMENT_TALLY:
+				COMMENT_TALLY[comment.author] += 1
+			else:
+				COMMENT_TALLY[comment.author] = 1
+		
+
+		if count == int(sys.argv[1]): break
+	print("we made it")
+
+
+	for user in sorted(COMMENT_TALLY, key=COMMENT_TALLY.get, reverse=True):
+		mark+=1
+		payload.append(str(user) +';'+ str(COMMENT_TALLY[user]))
+		if mark == 20: break
+	print('PYTHON')
+	print(20*'=')
+	print(payload)
+	print('JSON')
+	print(20*'=')
+	print(json.dumps(payload))
+	return json.dumps(payload)
 REDDIT_TITLE_GRAB()

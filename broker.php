@@ -10,22 +10,24 @@ require_once('functions.inc');
 
 function get_userinfo($username)
 {
-    echo ('Getting profile information for ' . $name . '...');
-    exec("python USER_INFO.py '".$name."'" ,$output,$result);
-    echo log_api_data($output);
+    echo ('Getting profile information for ' . $username . '...');
+    exec("python USER_INFO.py '".$username."'" ,$output,$result);
+    $output = json_encode($output);
+    //echo gettype($output);
+    //echo log_api_data($output);
     return $output;
 }
 
 function start_campaign($username, $password, $subreddit, $topic)
 {
-    echo ('Starting campaign on user ' . $name . ' on ' . $topic . '...');
-    exec("python START_CAMPAGIN.py '".$name."' '".$topic."'" ,$output,$result);
+    echo ('Starting campaign on user ' . $username . ' on ' . $topic . '...');
+    exec("python START_CAMPAGIN.py '".$username."' '".$topic."'" ,$output,$result);
     return $output;
 }
 
 function subreddit_post($username, $password, $subreddit, $subject, $message) {
     echo ('Posting ' . $subject . ' by user ' . $username . ' on subreddit ' . $subreddit . '...');
-    exec("python SUBREDDIT_POST.py '".$name."' '".$topic."'" ,$output,$result);
+    exec("python SUBREDDIT_POST.py '".$username."' '".$topic."'" ,$output,$result);
     return $output;
 }
 

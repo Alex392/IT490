@@ -19,7 +19,7 @@ def COMMENT_COUNT():
 	payload = []
 	count=0
 
-	IDSearch = sys.argv[1]
+	IDSearch = str(sys.argv[1])
 
 	#IDSearch = raw_input("What is the id for the post you are looking for?")#askes the user for the post id
 
