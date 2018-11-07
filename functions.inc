@@ -29,8 +29,12 @@ function log_message($request)
 */
 function log_api_data($userinfo)
 {
+    foreach ($userinfo as &$item) {
+	echo $item . " ";
+    }
+    echo gettype($userinfo);
     $db = new mysqli('192.168.0.124', 'emile', 'Password7!', 'authtest');
-    $s = "SELECT * FROM reddit_data WHERE redditorID ='". $userinfo[3] . "';";
+    $s = "SELECT * FROM reddit_data WHERE redditorID ='". $userinfo[1] . "';";
     ($t = mysqli_query($db, $s) or die(mysqli_errno($db)));
     $num = mysqli_num_rows($t);
     //echo $num;

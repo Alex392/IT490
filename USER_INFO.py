@@ -34,16 +34,16 @@ def USER_INFO():
 		EMAIL = 'NULL'
 	
 	#Commented out to make it easier for the front end
-	#print(USERNAME)
-	#print(REDDIT_ID)
-	#print(rB_DAY)
-	#print(str(EMAIL))
+	print(USERNAME)
+	print(REDDIT_ID)
+	print(rB_DAY)
+	print(str(EMAIL))
 
 	payload = [USERNAME, REDDIT_ID, rB_DAY, str(EMAIL)]
 	
 	#print(payload)
-	print(json.dumps(payload))
-	return json.dumps(payload)
+	#print(json.dumps(payload))
+	#return json.dumps(payload)
 	#return USERNAME
 	#return REDDIT_ID
 	#return rB_DAY

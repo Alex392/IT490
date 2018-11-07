@@ -18,14 +18,20 @@ function get_userinfo($username)
     //echo gettype($output);
     //echo ('  [after decode]=> ');
     //echo gettype($temp);
-    //echo log_api_data($temp);
+
+    if($temp[0] != 'NULL') {
+        echo log_api_data($temp);
+    }
+    else {
+        $output = 'That user name is available';
+    }
     return $output;
 }
 
-function start_campaign($username, $password, $subreddit, $topic)
+function start_campaign($subreditname, $title, $post)
 {
-    echo ('Starting campaign on user ' . $username . ' on ' . $topic . '...');
-    exec("python START_CAMPAGIN.py '".$username."' '".$topic."'" ,$output,$result);
+    echo ('Starting campaign on Sub-reddit ' . $subreditname . ' about ' . $title . '...');
+    exec("python SUBREDDIT_POST.py '".$subreditname."' '".$title."'" ,$output,$result);
     return $output;
 }
 
@@ -48,7 +54,7 @@ function requestProcessor($request)
         case "user_info":
             return get_userinfo($request['username']);
         case "campaign":
-            return start_campaign($request['username'], $request['password'], $request['subreddit'], $request['topic']);
+            return start_campaign($request['name'], $request['title'], $request['post'], $request['topic']);
         case "agg_thread":
             return doRegister($request['username'], $request['password']);
         case "agg_users":

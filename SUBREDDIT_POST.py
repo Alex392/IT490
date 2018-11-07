@@ -23,7 +23,7 @@ def SUBREDDIT_POST():
 	#POST = reddit.submission(id=IDSearch)#makes Post a submission object. can now use submission comands/functions on POST
 
 	reddit.subreddit(str(SUBREDDIT)).submit(str(TITLE), selftext=str(POST))
-	print('You posted :: ' + str(POST))
-	print('On ' + str(SUBREDDIT))
+	#print('You posted :: ' + str(POST))
+	#print('On ' + str(SUBREDDIT))
 
 SUBREDDIT_POST()
