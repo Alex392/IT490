@@ -10,10 +10,9 @@ reddit = praw.Reddit(client_id = 'pPciqPn--wkB9Q' ,
                      password ='DJKehoe',
                      user_agent ='testapp')
 
-print(reddit.user.me())
+#print(reddit.user.me())
 
 def SUBREDDIT_POST():
-
 	SUBREDDIT = sys.argv[1]	
 	TITLE = sys.argv[2]
 	POST = sys.argv[3]

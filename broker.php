@@ -30,8 +30,12 @@ function get_userinfo($username)
 
 function start_campaign($subreditname, $title, $post)
 {
+    $space = " ";
+    echo ($subreditname);
     echo ('Starting campaign on Sub-reddit ' . $subreditname . ' about ' . $title . '...');
-    exec("python SUBREDDIT_POST.py '".$subreditname."' '".$title."'" ,$output,$result);
+    exec("python SUBREDDIT_POST.py '".$subreditname."' '".$title."' '".$post."'" ,$output,$result);
+    $output = json_encode($output);
+     
     return $output;
 }
 
@@ -54,7 +58,7 @@ function requestProcessor($request)
         case "user_info":
             return get_userinfo($request['username']);
         case "campaign":
-            return start_campaign($request['name'], $request['title'], $request['post'], $request['topic']);
+            return start_campaign($request['name'], $request['title'], $request['post']);
         case "agg_thread":
             return doRegister($request['username'], $request['password']);
         case "agg_users":
@@ -73,5 +77,9 @@ $server = new rabbitMQServer("RabbitMQ.ini", "testServer");
 echo "testRabbitMQServer BEGIN" . PHP_EOL;
 $server->process_requests('requestProcessor');
 echo "testRabbitMQServer END" . PHP_EOL;
+//$server = new rabbitMQServer("RMQ_Campaign.ini", "testServer");
+//echo "Campaign BEGIN" . PHP_EOL;
+//$server->process_requests('requestProcessor');
+//echo "Campaign END" . PHP_EOL;
 exit();
 ?>
