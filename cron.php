@@ -10,8 +10,6 @@ function new_campaign_entry($subreddit, $subject, $content, $hour)
     fputcsv($file, $entry);
     fclose($file);
 }
-new_campaign_entry('TheTestLife','Test','Bob',1);
-
 $file = fopen('autopost.csv', 'r');
 
 while (($line = fgetcsv($file)) !== false) {
