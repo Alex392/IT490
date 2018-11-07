@@ -15,7 +15,7 @@ def REDDIT_TITLE_GRAB():
 
 	COMMENT_TALLY = {}
 	payload = []
-	count = 0
+	count = 1
 	mark = 0
 
 
@@ -28,6 +28,14 @@ def REDDIT_TITLE_GRAB():
 	#ask the user if they what to continue after every five
 	#the defalt limit is 100
 	#making the limit 1000 the titles stoped at around 250
+		try: 
+			print(str(count)+') User: {} Title ID: {}  Num_Comments: {} Score: {} Title: {} Link:  https://www.reddit.com{}'.format(submission.author,submission.id,submission.num_comments,submission.score,submission.title.encode('utf-8').strip(),submission.permalink))
+			print(20*'=')
+			USERNAME = submission.author
+			TITLE_ID = submission.id
+			TITLE = submission.title.encode('utf-8').strip()
+		except :
+			continue
 		count+= 1
 		#while count%5 == 0:
 		#	YN_ANSWER = raw_input('Would you like to continue? (Y/N)')
@@ -35,11 +43,7 @@ def REDDIT_TITLE_GRAB():
 		#	elif YN_ANSWER =='N': quit()
 		#	else: continue
 			
-		print(str(count)+') User: {} Title ID: {}  Num_Comments: {} Score: {} Title: {} Post: {}'.format(submission.author,submission.id,submission.num_comments,submission.score,submission.title.encode('utf-8').strip(),submission.selftext))
-		print(20*'=')
-		USERNAME = submission.author
-		TITLE_ID = submission.id
-		TITLE = submission.title.encode('utf-8').strip()
+		
 		
 
 		#starts to tally the comments that people make
@@ -56,7 +60,7 @@ def REDDIT_TITLE_GRAB():
 				COMMENT_TALLY[comment.author] = 1
 		
 
-		if count == int(sys.argv[1]): break
+		if count == (int(sys.argv[1])+1): break
 	print("we made it")
 
 
