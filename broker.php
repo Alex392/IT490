@@ -64,6 +64,12 @@ function post_comment($id, $message) {
     $output = json_encode($output);
     return $output;
 }
+function post_comment($topic) {
+    echo ("Searching for: '" . $topic . " ....");
+    exec("python TITLE_ID.py '".$topic,$output,$result);
+    $output = json_encode($output);
+    return $output;
+}
 
 function requestProcessor($request)
 {
@@ -85,6 +91,8 @@ function requestProcessor($request)
             return key_users($request['keyword'], $request['limit']);
         case "post_comment":
             return post_comment($request['id'], $request['message']);
+        case "thread_id":
+            return thread_id($request['topic']);
         case "post":
             return post($request['username'], $request['password'], $request['topic']);
     }
