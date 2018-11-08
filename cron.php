@@ -12,7 +12,7 @@ function lineStart($file) {
 
 function new_campaign_entry($subreddit, $subject, $content, $hour)
 {
-    if (hour >= 1) {
+    if ($hour >= 1) {
         $date = date('Y-m-d\TH:i:sP', time());
         $entry = array ($subreddit, $subject, $content, $hour, $date);
 
