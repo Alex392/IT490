@@ -58,6 +58,13 @@ function key_users($limit, $topic) {
     return $output;
 }
 
+function post_comment($id, $message) {
+    echo ("Posting: '" . $message . "' on thread ID " . $id);
+    exec("python POST_COMMENT.py '".$id."' '".$message."'" ,$output,$result);
+    $output = json_encode($output);
+    return $output;
+}
+
 function requestProcessor($request)
 {
     echo "received request" . PHP_EOL;
@@ -76,6 +83,8 @@ function requestProcessor($request)
             return key_threads($request['keyword'], $request['limit']);
         case "agg_users":
             return key_users($request['keyword'], $request['limit']);
+        case "post_comment":
+            return post_comment($request['id'], $request['message']);
         case "post":
             return post($request['username'], $request['password'], $request['topic']);
     }
