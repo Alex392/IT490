@@ -45,6 +45,17 @@ function subreddit_post($username, $password, $subreddit, $subject, $message) {
     return $output;
 }
 
+function key_threads($limit, $topic) {
+    echo ('Searching for ' . $limit . ' threads on topic: ' . $topic);
+    exec("python KEY_THREADS.py '".$limit."' '".$topic."'" ,$output,$result);
+    return $output;
+}
+function key_users($limit, $topic) {
+    echo ('Posting ' . $subject . ' by user ' . $username . ' on subreddit ' . $subreddit . '...');
+    exec("python KEY_USERS.py '".$limit."' '".$topic."'" ,$output,$result);
+    return $output;
+}
+
 function requestProcessor($request)
 {
     echo "received request" . PHP_EOL;
