@@ -3,12 +3,17 @@
 
 function new_campaign_entry($subreddit, $subject, $content, $hour)
 {
-    $date = date('Y-m-d\TH:i:sP', time());
-    $entry = array ($subreddit, $subject, $content, $hour, $date);
+    if (hour >= 1) {
+        $date = date('Y-m-d\TH:i:sP', time());
+        $entry = array ($subreddit, $subject, $content, $hour, $date);
 
-    $file = fopen('autopost.csv', 'a');
-    fputcsv($file, $entry);
-    fclose($file);
+        $file = fopen('autopost.csv', 'a');
+        fputcsv($file, $entry);
+        fclose($file);
+    }
+    else {
+        echo "Hours cannot be 0: will not auto post.";
+    }
 }
 $file = fopen('autopost.csv', 'r');
 

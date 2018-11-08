@@ -5,6 +5,7 @@ require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 require_once('login.php.inc');
 require_once('functions.inc');
+require_once('cron.php');
 /*
 */
 
@@ -28,14 +29,13 @@ function get_userinfo($username)
     return $output;
 }
 
-function start_campaign($subreditname, $title, $post)
+function start_campaign($subredditname, $title, $post, $hour)
 {
-    $space = " ";
-    echo ($subreditname);
-    echo ('Starting campaign on Sub-reddit ' . $subreditname . ' about ' . $title . '...');
-    exec("python SUBREDDIT_POST.py '".$subreditname."' '".$title."' '".$post."'" ,$output,$result);
+    echo ($subredditname);
+    echo ('Starting campaign on Sub-reddit ' . $subredditname . ' about ' . $title . '...');
+    exec("python SUBREDDIT_POST.py '".$subredditname."' '".$title."' '".$post."'" ,$output,$result);
     $output = json_encode($output);
-     
+    new_campaign_entry($subredditname, $title, $post, $hour);
     return $output;
 }
 
@@ -58,7 +58,7 @@ function requestProcessor($request)
         case "user_info":
             return get_userinfo($request['username']);
         case "campaign":
-            return start_campaign($request['name'], $request['title'], $request['post']);
+            return start_campaign($request['name'], $request['title'], $request['post'],$request['hour']);
         case "agg_thread":
             return doRegister($request['username'], $request['password']);
         case "agg_users":
