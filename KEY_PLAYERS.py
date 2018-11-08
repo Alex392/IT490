@@ -22,10 +22,10 @@ def REDDIT_TITLE_GRAB():
 	seachquest = str(sys.argv[2])
 
 	#[limit] is the amount of reasults it will return
-	for submission in reddit.subreddit('all').search(seachquest,limit=200):
+	for submission in reddit.subreddit('all').search(seachquest,limit=20):
 		try: 
 			#starts to tally the comments that people make
-			print(submission.title.encode('utf-8').strip())
+			#print(submission.title.encode('utf-8').strip())
 			TITLE_ID = submission.id
 			POST = reddit.submission(id=TITLE_ID)
 

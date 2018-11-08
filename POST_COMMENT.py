@@ -21,8 +21,11 @@ def POST_COMMENT():
 	
 	#POST = reddit.submission(id=IDSearch)#makes Post a submission object. can now use submission comands/functions on POST
 
-	reddit.submission(POST_ID).reply(str(COMMENT_BODY))
-	print('You said :: ' + str(COMMENT_BODY))
-	print('On ' + reddit.submission(id=POST_ID).title.encode('utf-8').strip())
+	comment = reddit.submission(POST_ID)
+	comment.save(category="view later")
+	comment.reply(str(COMMENT_BODY))
+	#print('You said :: ' + str(COMMENT_BODY))
+	#print('On ' + reddit.submission(id=POST_ID).title.encode('utf-8').strip())
+	print('www.reddit.com'+comment.permalink)
 
 POST_COMMENT()

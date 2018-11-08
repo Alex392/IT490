@@ -16,14 +16,13 @@ def KEY_THREADS():
 	
 	count = 0
 	#sys.argv[2] is the topic
-	seachquest = str(sys.argv[2])
+	seachquest = str(sys.argv[1])
 
 	
-	#sys.argv[1] is the amount of posts that we will see
-	num = int(sys.argv[1])
-	for submission in reddit.subreddit('all').search(seachquest,limit=num):
+
+	for submission in reddit.subreddit('all').search(seachquest,limit=15):
 		try: 
-			print('https://www.reddit.com{}'.format(submission.permalink))
+			print('Title {}   Post ID {}'.format(submission.title.encode('utf-8').strip(),submission.id))
 		except :
 			continue
 		count+= 1
