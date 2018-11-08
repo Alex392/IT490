@@ -1,6 +1,15 @@
 #!/usr/bin/php
 <?php
 
+function lineStart($file) {
+    $position = ftell($file);
+    while (fgetc($file) != "\n") {
+        fseek($file, --$position);
+        if ($position == 0) break;
+    }
+    return $position;
+}
+
 function new_campaign_entry($subreddit, $subject, $content, $hour)
 {
     if (hour >= 1) {
@@ -9,14 +18,13 @@ function new_campaign_entry($subreddit, $subject, $content, $hour)
 
         $file = fopen('autopost.csv', 'a');
         fputcsv($file, $entry);
-        fclose($file);
+        
     }
     else {
         echo "Hours cannot be 0: will not auto post.";
     }
 }
 $file = fopen('autopost.csv', 'r');
-
 while (($line = fgetcsv($file)) !== false) {
     print_r($line);
 
@@ -30,6 +38,9 @@ while (($line = fgetcsv($file)) !== false) {
 
     if($hours >= $line[3]) {
         echo exec("python SUBREDDIT_POST.py '".$line[0]."' '".$line[1]."' '".$line[2]."'", $output, $result);
+        lineStart($file);
+        new_campaign_entry($line[0],$line[1],$line[2],$line[3]);
+        ftruncate($file, lineStart($file));
     }
 
 }
