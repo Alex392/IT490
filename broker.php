@@ -45,6 +45,19 @@ function subreddit_post($username, $password, $subreddit, $subject, $message) {
     return $output;
 }
 
+function key_threads($limit, $topic) {
+    echo ('Searching for ' . $limit . ' threads on topic: ' . $topic);
+    exec("python KEY_THREADS.py '".$limit."' '".$topic."'" ,$output,$result);
+    $output = json_encode($output);
+    return $output;
+}
+function key_users($limit, $topic) {
+    echo ('Posting ' . $subject . ' by user ' . $username . ' on subreddit ' . $subreddit . '...');
+    exec("python KEY_USERS.py '".$limit."' '".$topic."'" ,$output,$result);
+    $output = json_encode($output);
+    return $output;
+}
+
 function requestProcessor($request)
 {
     echo "received request" . PHP_EOL;
@@ -60,9 +73,9 @@ function requestProcessor($request)
         case "campaign":
             return start_campaign($request['name'], $request['title'], $request['post'],$request['hour']);
         case "agg_thread":
-            return doRegister($request['username'], $request['password']);
+            return key_threads($request['keyword'], $request['limit']);
         case "agg_users":
-            return doValidate($request['sessionId']);
+            return key_users($request['keyword'], $request['limit']);
         case "post":
             return post($request['username'], $request['password'], $request['topic']);
     }
