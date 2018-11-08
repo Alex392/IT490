@@ -45,15 +45,15 @@ function subreddit_post($username, $password, $subreddit, $subject, $message) {
     return $output;
 }
 
-function key_threads($limit, $topic) {
+function key_threads($topic, $limit) {
     echo ('Searching for ' . $limit . ' threads on topic: ' . $topic);
     exec("python KEY_THREADS.py '".$limit."' '".$topic."'" ,$output,$result);
     $output = json_encode($output);
     return $output;
 }
-function key_users($limit, $topic) {
-    echo ('Posting ' . $subject . ' by user ' . $username . ' on subreddit ' . $subreddit . '...');
-    exec("python KEY_USERS.py '".$limit."' '".$topic."'" ,$output,$result);
+function key_users($topic, $limit) {
+    echo ('Searching for ' . $limit . ' users on topic: ' . $topic);
+    exec("python KEY_PLAYERS.py '".$limit."' '".$topic."'" ,$output,$result);
     $output = json_encode($output);
     return $output;
 }
@@ -79,9 +79,9 @@ function requestProcessor($request)
             return get_userinfo($request['username']);
         case "campaign":
             return start_campaign($request['name'], $request['title'], $request['post'],$request['hour']);
-        case "agg_thread":
+        case "key_threads":
             return key_threads($request['keyword'], $request['limit']);
-        case "agg_users":
+        case "key_players":
             return key_users($request['keyword'], $request['limit']);
         case "post_comment":
             return post_comment($request['id'], $request['message']);
