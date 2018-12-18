@@ -60,13 +60,13 @@ def REDDIT_TITLE_GRAB():
 	NAME_count = np.arange(len(NAME_payload))
 	plt.gcf().subplots_adjust(bottom=0.45)
 	plt.style.use('ggplot')
-	plt.title(seachquest)
-	plt.xlabel('Redditors')
-	plt.ylabel('Number of comments')
+	plt.title(seachquest , fontsize = 15 , fontweight = 'bold')
+	plt.xlabel('Redditors' , fontsize = 12 , fontweight = 'bold')
+	plt.ylabel('Number of comments' , fontsize = 13 , fontweight = 'bold')
 	plt.bar(NAME_payload, TALLY_payload)
 	
-	plt.xticks(NAME_count, NAME_payload, fontsize=10, fontweight='bold', rotation=-90, multialignment='left')
-
+	plt.xticks(NAME_count, NAME_payload, fontsize=7, fontweight='bold', rotation=-90, multialignment='left')
+	plt.yticks(fontsize=12, fontweight='semibold')
 	
 	#plt.show()
 

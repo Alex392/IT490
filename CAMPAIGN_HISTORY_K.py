@@ -45,15 +45,15 @@ def CAMPAIGN_HISTORY_K():
 	#here is where the graph is made
 	plt.figure(1,figsize=(16,16))
 	CAMPAIGN_count = np.arange(len(CAMPAIGN_payload))
-	plt.gcf().subplots_adjust(bottom=0.25)
+	plt.gcf().subplots_adjust(bottom=0.30)
 	plt.style.use('ggplot')
-	plt.title('Campaign Karma')
-	plt.xlabel('Campaigns')
-	plt.ylabel('Karma')
+	plt.title('Campaign Karma' , fontsize = 15 , fontweight = 'bold')
+	plt.xlabel('Campaigns' , fontsize = 12 , fontweight = 'bold')
+	plt.ylabel('Karma' , fontsize = 13 , fontweight = 'bold')
 	plt.bar(CAMPAIGN_payload, KARMA_payload)
 	
 	plt.xticks(CAMPAIGN_count, CAMPAIGN_payload, fontsize=20, fontweight='bold', rotation=-90, multialignment='left')
-
+	plt.yticks(fontsize=12, fontweight='semibold')
 	
 	#plt.show()
 
