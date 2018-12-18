@@ -39,7 +39,7 @@ def USER_INFO():
 	print(rB_DAY)
 	print(str(EMAIL))
 
-	payload = [USERNAME, REDDIT_ID, rB_DAY, str(EMAIL)]
+	#payload = [USERNAME, REDDIT_ID, rB_DAY, str(EMAIL)]
 	
 	#print(payload)
 	#print(json.dumps(payload))

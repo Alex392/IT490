@@ -10,11 +10,11 @@ function lineStart($file) {
     return $position;
 }
 
-function new_campaign_entry($subreddit, $subject, $content, $hour)
+function new_campaign_entry($subreddit, $subject, $content, $hour, $user)
 {
     if ($hour >= 1) {
         $date = date('Y-m-d\TH:i:sP', time());
-        $entry = array ($subreddit, $subject, $content, $hour, $date);
+        $entry = array ($subreddit, $subject, $content, $hour, $date, $user);
 
         $file = fopen('autopost.csv', 'a');
         fputcsv($file, $entry);
@@ -37,9 +37,9 @@ while (($line = fgetcsv($file)) !== false) {
     $hours = $diff->h;
 
     if($hours >= $line[3]) {
-        echo exec("python SUBREDDIT_POST.py '".$line[0]."' '".$line[1]."' '".$line[2]."'", $output, $result);
+        echo exec("python SUBREDDIT_POST.py '".$line[0]."' '".$line[1]."' '".$line[2]."' '".$line[5], $output, $result);
         lineStart($file);
-        new_campaign_entry($line[0],$line[1],$line[2],$line[3]);
+        new_campaign_entry($line[0],$line[1],$line[2],$line[3],$line[5]);
         ftruncate($file, lineStart($file));
     }
 

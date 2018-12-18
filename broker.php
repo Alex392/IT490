@@ -15,35 +15,44 @@ function get_userinfo($username)
     exec("python USER_INFO.py '".$username."'" ,$output,$result);
     $temp = $output;    
     $output = json_encode($output);
+    //a test to see if tommas can still get the output
+    echo $output;
     
     //echo gettype($output);
     //echo ('  [after decode]=> ');
     //echo gettype($temp);
 
+
+    //can use this code to send stuff to DB(database)
     if($temp[0] != 'NULL') {
-        echo log_api_data($temp);
-    }
+        echo userinfo_DB_payload($temp);
+	return $output;
+    }/*
     else {
         $output = 'That user name is available';
-    }
+    }*/
     return $output;
 }
 
-function start_campaign($subredditname, $title, $post, $hour)
+function start_campaign($subredditname, $title, $post, $hour,$user)
 {
     echo ($subredditname);
     echo ('Starting campaign on Sub-reddit ' . $subredditname . ' about ' . $title . '...');
-    exec("python SUBREDDIT_POST.py '".$subredditname."' '".$title."' '".$post."'" ,$output,$result);
+    exec("python SUBREDDIT_POST.py '".$subredditname."' '".$title."' '".$post."' '".$user."'" ,$output,$result);
+    $temp = $output;
+    var_dump($output);
     $output = json_encode($output);
-    new_campaign_entry($subredditname, $title, $post, $hour);
+    echo(campaign_DB_payload($temp));
+    new_campaign_entry($subredditname, $title, $post, $hour, $user);
     return $output;
 }
-
+/*
 function subreddit_post($username, $password, $subreddit, $subject, $message) {
     echo ('Posting ' . $subject . ' by user ' . $username . ' on subreddit ' . $subreddit . '...');
     exec("python SUBREDDIT_POST.py '".$username."' '".$topic."'" ,$output,$result);
     return $output;
 }
+*/
 
 function key_threads($topic, $limit) {
     echo ('Searching for ' . $limit . ' threads on topic: ' . $topic);
@@ -70,6 +79,17 @@ function thread_id($topic) {
     $output = json_encode($output);
     return $output;
 }
+function history_C($user){
+    echo ("Making graph for '" . $user );
+    return(campaignHistory_C_payload($user)); 
+}
+function history_K($user){
+    echo ("Making graph for '" . $user );
+    return(campaignHistory_K_payload($user)); 
+}
+function emails($user){
+    return(email_update($user)); 
+}
 
 function requestProcessor($request)
 {
@@ -84,7 +104,7 @@ function requestProcessor($request)
         case "user_info":
             return get_userinfo($request['username']);
         case "campaign":
-            return start_campaign($request['name'], $request['title'], $request['post'],$request['hour']);
+            return start_campaign($request['name'], $request['title'], $request['post'],$request['hour'], $request['user']);
         case "key_threads":
             return key_threads($request['keyword'], $request['limit']);
         case "key_players":
@@ -93,8 +113,20 @@ function requestProcessor($request)
             return post_comment($request['id'], $request['comment']);
         case "thread_id":
             return thread_id($request['keyword']);
-        case "post":
-            return post($request['username'], $request['password'], $request['topic']);
+        //case "post":
+        //    return post($request['username'], $request['password'], $request['topic']);
+	case "history":
+		if ($request["kc"] === "comments")
+		{
+			echo $request["kc"];
+			return history_C($request['user']);
+		}
+		elseif ($request["kc"] === "karma")
+		{
+			return history_K($request['user']);
+		}
+	case "emails":
+	     return emails($request['user']);
     }
     //log_message($request);
     return array(

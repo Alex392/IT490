@@ -22,7 +22,7 @@ def KEY_THREADS():
 
 	for submission in reddit.subreddit('all').search(seachquest,limit=15):
 		try: 
-			print('Post ID {}  Title {}'.format(submission.id,submission.title.encode('utf-8').strip()))
+			print('Post ID: {}  Title: {}'.format(submission.id,submission.title.encode('utf-8').strip()))
 		except :
 			continue
 		count+= 1
