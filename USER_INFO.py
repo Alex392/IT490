@@ -13,13 +13,22 @@ reddit = praw.Reddit(client_id = 'pPciqPn--wkB9Q' ,
 	             username = 'nullbreakers-1',
 	             password ='DJKehoe',
 	             user_agent ='testapp')
+<<<<<<< HEAD
 print(reddit.user.me())
+=======
+#print(reddit.user.me())
+>>>>>>> develop
 
 
 def USER_INFO():
 #userSearch = raw_input("Who are you looking for?")#askes the user who they are looking for
+<<<<<<< HEAD
 	print(sys.argv)
 	userSearch = sys.argv[1]
+=======
+	#print(sys.argv)
+	userSearch = str(sys.argv[1])
+>>>>>>> develop
 	try:
 		USERNAME = reddit.redditor(name=userSearch).name
 		REDDIT_ID = reddit.redditor(name=userSearch).id
@@ -32,6 +41,7 @@ def USER_INFO():
 		REDDIT_ID = 'NULL'
 		rB_DAY = 'NULL'
 		EMAIL = 'NULL'
+<<<<<<< HEAD
 
 	print('USERNAME: ' + USERNAME)
 	print('REDDIT_ID: ' + REDDIT_ID)
@@ -43,6 +53,20 @@ def USER_INFO():
 	print(payload)
 	print(json.dumps(payload))
 	return json.dumps(payload)
+=======
+	
+	#Commented out to make it easier for the front end
+	print(USERNAME)
+	print(REDDIT_ID)
+	print(rB_DAY)
+	print(str(EMAIL))
+
+	#payload = [USERNAME, REDDIT_ID, rB_DAY, str(EMAIL)]
+	
+	#print(payload)
+	#print(json.dumps(payload))
+	#return json.dumps(payload)
+>>>>>>> develop
 	#return USERNAME
 	#return REDDIT_ID
 	#return rB_DAY
